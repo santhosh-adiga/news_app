@@ -1,0 +1,24 @@
+{
+  "status": "ok",
+  "totalResults": 2,
+  "articles": [
+    {
+      "source": { "name": "TechCrunch" },
+      "title": "New AI Breakthrough",
+      "description": "AI advances in 2025.",
+      "url": "http://example.com/ai",
+      "urlToImage": "http://example.com/ai.jpg",
+      "publishedAt": "2025-04-14T10:00:00Z",
+      "content": "Full AI content."
+    },
+    {
+      "source": { "name": "ESPN" },
+      "title": "Sports Update",
+      "description": "Latest sports news.",
+      "url": "http://example.com/sports",
+      "urlToImage": "http://example.com/sports.jpg",
+      "publishedAt": "2025-04-14T11:00:00Z",
+      "content": "Full sports content."
+    }
+  ]
+}
