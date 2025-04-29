@@ -1,10 +1,10 @@
-
 import 'package:either_dart/either.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/domain/entities/news.dart';
 import 'package:news_app/features/news/domain/usecases/get_bookmarks.dart';
+
 import '../../../../test_utils.mocks.dart';
 
 void main() {
@@ -27,9 +27,11 @@ void main() {
   ];
 
   group('GetBookmarks', () {
-    test('should return bookmarks when repository call is successful', () async {
+    test('should return bookmarks when repository call is successful',
+        () async {
       // Arrange
-      when(mockRepository.getBookmarks()).thenAnswer((_) async => Right(tBookmarks));
+      when(mockRepository.getBookmarks())
+          .thenAnswer((_) async => Right(tBookmarks));
 
       // Act
       final result = await usecase.execute();
@@ -43,7 +45,8 @@ void main() {
     test('should return failure when repository fails', () async {
       // Arrange
       const failure = CacheFailure('Cache error');
-      when(mockRepository.getBookmarks()).thenAnswer((_) async => const Left(failure));
+      when(mockRepository.getBookmarks())
+          .thenAnswer((_) async => const Left(failure));
 
       // Act
       final result = await usecase.execute();

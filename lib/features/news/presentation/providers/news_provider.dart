@@ -9,12 +9,12 @@ import 'package:news_app/features/news/domain/usecases/get_news.dart';
 final getNewsProvider = Provider<GetNews>((ref) => getIt.get<GetNews>());
 
 final newsProvider =
-StateNotifierProvider.autoDispose<NewsNotifier, AsyncValue<List<News>>>(
+    StateNotifierProvider.autoDispose<NewsNotifier, AsyncValue<List<News>>>(
         (ref) {
-      final cancelToken = CancelToken();
-      ref.onDispose(() => cancelToken.cancel()); // NFR 6: Cancel on dispose
-      return NewsNotifier(ref.read(getNewsProvider), cancelToken);
-    });
+  final cancelToken = CancelToken();
+  ref.onDispose(() => cancelToken.cancel()); // NFR 6: Cancel on dispose
+  return NewsNotifier(ref.read(getNewsProvider), cancelToken);
+});
 
 class NewsNotifier extends StateNotifier<AsyncValue<List<News>>> {
   final GetNews getNews;
@@ -22,7 +22,8 @@ class NewsNotifier extends StateNotifier<AsyncValue<List<News>>> {
   String _category = '';
   String _query = '';
 
-  NewsNotifier(this.getNews, this.cancelToken) : super(const AsyncValue.loading()) {
+  NewsNotifier(this.getNews, this.cancelToken)
+      : super(const AsyncValue.loading()) {
     loadNews();
     // NFR 8: Auto-retry on network restoration
     Connectivity().onConnectivityChanged.listen((result) {
@@ -49,8 +50,8 @@ class NewsNotifier extends StateNotifier<AsyncValue<List<News>>> {
       query: _query.isEmpty ? null : _query,
     );
     state = result.fold(
-          (failure) => AsyncValue.error(failure.message, StackTrace.current),
-          (news) => AsyncValue.data(news),
+      (failure) => AsyncValue.error(failure.message, StackTrace.current),
+      (news) => AsyncValue.data(news),
     );
   }
 

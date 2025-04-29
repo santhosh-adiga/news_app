@@ -8,8 +8,8 @@ import 'package:news_app/features/news/domain/entities/news.dart';
 import 'package:news_app/features/news/domain/usecases/add_bookmark.dart';
 import 'package:news_app/features/news/domain/usecases/get_bookmarks.dart';
 import 'package:news_app/features/news/domain/usecases/remove_bookmark.dart';
-import 'package:news_app/features/news/presentation/providers/bookmark_provider.dart';
 import 'package:news_app/features/news/presentation/widgets/news_tile.dart';
+
 import '../../../../test_utils.mocks.dart';
 
 void main() {

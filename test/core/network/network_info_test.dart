@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:news_app/core/network/network_info.dart';
+
 import '../../test_utils.mocks.dart';
 
 void main() {
@@ -55,8 +56,8 @@ void main() {
 
     test('should return true when multiple connections are active', () async {
       // Arrange
-      when(mockConnectivity.checkConnectivity())
-          .thenAnswer((_) async => [ConnectivityResult.wifi, ConnectivityResult.mobile]);
+      when(mockConnectivity.checkConnectivity()).thenAnswer(
+          (_) async => [ConnectivityResult.wifi, ConnectivityResult.mobile]);
 
       // Act
       final result = await networkInfo.isConnected;

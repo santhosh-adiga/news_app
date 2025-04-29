@@ -1,4 +1,3 @@
-
 import 'package:either_dart/either.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/domain/entities/news.dart';
 import 'package:news_app/features/news/presentation/providers/bookmark_provider.dart';
+
 import '../../../../test_utils.mocks.dart';
 
 void main() {
@@ -44,7 +44,8 @@ void main() {
   group('BookmarkNotifier', () {
     test('should load bookmarks successfully', () async {
       // Arrange
-      when(mockGetBookmarks.execute()).thenAnswer((_) async => Right(tBookmarks));
+      when(mockGetBookmarks.execute())
+          .thenAnswer((_) async => Right(tBookmarks));
 
       // Act
       final notifier = container.read(bookmarkProvider.notifier);
@@ -59,7 +60,8 @@ void main() {
     test('should handle error when loading bookmarks fails', () async {
       // Arrange
       const failure = CacheFailure('Cache error');
-      when(mockGetBookmarks.execute()).thenAnswer((_) async => const Left(failure));
+      when(mockGetBookmarks.execute())
+          .thenAnswer((_) async => const Left(failure));
 
       // Act
       final notifier = container.read(bookmarkProvider.notifier);
@@ -74,8 +76,10 @@ void main() {
 
     test('should add bookmark successfully', () async {
       // Arrange
-      when(mockAddBookmark.execute(any)).thenAnswer((_) async => const Right(null));
-      when(mockGetBookmarks.execute()).thenAnswer((_) async => Right(tBookmarks));
+      when(mockAddBookmark.execute(any))
+          .thenAnswer((_) async => const Right(null));
+      when(mockGetBookmarks.execute())
+          .thenAnswer((_) async => Right(tBookmarks));
 
       // Act
       final notifier = container.read(bookmarkProvider.notifier);
@@ -91,7 +95,8 @@ void main() {
     test('should handle error when adding bookmark fails', () async {
       // Arrange
       const failure = CacheFailure('Cache error');
-      when(mockAddBookmark.execute(any)).thenAnswer((_) async => const Left(failure));
+      when(mockAddBookmark.execute(any))
+          .thenAnswer((_) async => const Left(failure));
 
       // Act
       final notifier = container.read(bookmarkProvider.notifier);
@@ -107,7 +112,8 @@ void main() {
 
     test('should remove bookmark successfully', () async {
       // Arrange
-      when(mockRemoveBookmark.execute(any)).thenAnswer((_) async => const Right(null));
+      when(mockRemoveBookmark.execute(any))
+          .thenAnswer((_) async => const Right(null));
       when(mockGetBookmarks.execute()).thenAnswer((_) async => Right([]));
 
       // Act
@@ -124,7 +130,8 @@ void main() {
     test('should handle error when removing bookmark fails', () async {
       // Arrange
       const failure = CacheFailure('Cache error');
-      when(mockRemoveBookmark.execute(any)).thenAnswer((_) async => const Left(failure));
+      when(mockRemoveBookmark.execute(any))
+          .thenAnswer((_) async => const Left(failure));
 
       // Act
       final notifier = container.read(bookmarkProvider.notifier);
@@ -140,7 +147,8 @@ void main() {
 
     test('should return true when news is bookmarked', () async {
       // Arrange
-      when(mockGetBookmarks.execute()).thenAnswer((_) async => Right(tBookmarks));
+      when(mockGetBookmarks.execute())
+          .thenAnswer((_) async => Right(tBookmarks));
 
       // Act
       final notifier = container.read(bookmarkProvider.notifier);
@@ -153,7 +161,8 @@ void main() {
 
     test('should return false when news is not bookmarked', () async {
       // Arrange
-      when(mockGetBookmarks.execute()).thenAnswer((_) async => Right(tBookmarks));
+      when(mockGetBookmarks.execute())
+          .thenAnswer((_) async => Right(tBookmarks));
 
       // Act
       final notifier = container.read(bookmarkProvider.notifier);

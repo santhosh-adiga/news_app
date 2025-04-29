@@ -19,7 +19,8 @@ void main() {
     );
 
     // Assert
-    expect(find.byType(CircularProgressIndicator), findsOneWidget); // NFR 5: Unified loading
+    expect(find.byType(CircularProgressIndicator),
+        findsOneWidget); // NFR 5: Unified loading
     expect(find.byType(Text), findsNothing);
   });
 
@@ -44,7 +45,8 @@ void main() {
 
   testWidgets('AsyncHandler shows error state', (WidgetTester tester) async {
     // Arrange
-    final asyncValue = AsyncValue<String>.error('Error message', StackTrace.empty);
+    final asyncValue =
+        AsyncValue<String>.error('Error message', StackTrace.empty);
 
     // Act
     await tester.pumpWidget(
@@ -57,7 +59,8 @@ void main() {
     );
 
     // Assert
-    expect(find.text('Error: Error message'), findsOneWidget); // NFR 5: Unified error
+    expect(find.text('Error: Error message'),
+        findsOneWidget); // NFR 5: Unified error
     expect(find.byType(CircularProgressIndicator), findsNothing);
     expect(find.byType(Text), findsWidgets); // Error text is a Text widget
   });

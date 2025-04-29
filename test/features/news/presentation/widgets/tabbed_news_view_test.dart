@@ -11,6 +11,7 @@ import 'package:news_app/features/news/domain/usecases/get_news.dart';
 import 'package:news_app/features/news/domain/usecases/remove_bookmark.dart';
 import 'package:news_app/features/news/presentation/screens/news_detail_screen.dart';
 import 'package:news_app/features/news/presentation/widgets/tabbed_news_view.dart';
+
 import '../../../../test_utils.mocks.dart';
 
 void main() {
@@ -44,9 +45,11 @@ void main() {
     ),
   ];
 
-  testWidgets('TabbedNewsView displays tabs and news', (WidgetTester tester) async {
+  testWidgets('TabbedNewsView displays tabs and news',
+      (WidgetTester tester) async {
     // Arrange
-    when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+    when(mockGetNews.execute(
+            category: anyNamed('category'), query: anyNamed('query')))
         .thenAnswer((_) async => Right(tNewsList));
     when(mockGetBookmarks.execute()).thenAnswer((_) async => Right([]));
 
@@ -70,7 +73,8 @@ void main() {
 
   testWidgets('TabbedNewsView switches tabs', (WidgetTester tester) async {
     // Arrange
-    when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+    when(mockGetNews.execute(
+            category: anyNamed('category'), query: anyNamed('query')))
         .thenAnswer((_) async => Right(tNewsList));
     when(mockGetBookmarks.execute()).thenAnswer((_) async => Right([]));
 
@@ -94,7 +98,8 @@ void main() {
 
   testWidgets('TabbedNewsView performs search', (WidgetTester tester) async {
     // Arrange
-    when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+    when(mockGetNews.execute(
+            category: anyNamed('category'), query: anyNamed('query')))
         .thenAnswer((_) async => Right(tNewsList));
     when(mockGetBookmarks.execute()).thenAnswer((_) async => Right([]));
 
@@ -113,12 +118,14 @@ void main() {
     await tester.pumpAndSettle();
 
     // Assert
-    verify(mockGetNews.execute(category: null, query: 'tech')); // NFR 4: UI updates
+    verify(mockGetNews.execute(
+        category: null, query: 'tech')); // NFR 4: UI updates
   });
 
   testWidgets('TabbedNewsView selects category', (WidgetTester tester) async {
     // Arrange
-    when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+    when(mockGetNews.execute(
+            category: anyNamed('category'), query: anyNamed('query')))
         .thenAnswer((_) async => Right(tNewsList));
     when(mockGetBookmarks.execute()).thenAnswer((_) async => Right([]));
 
@@ -139,12 +146,15 @@ void main() {
     await tester.pumpAndSettle();
 
     // Assert
-    verify(mockGetNews.execute(category: 'business', query: null)); // NFR 4: UI updates
+    verify(mockGetNews.execute(
+        category: 'business', query: null)); // NFR 4: UI updates
   });
 
-  testWidgets('TabbedNewsView navigates to NewsDetailScreen', (WidgetTester tester) async {
+  testWidgets('TabbedNewsView navigates to NewsDetailScreen',
+      (WidgetTester tester) async {
     // Arrange
-    when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+    when(mockGetNews.execute(
+            category: anyNamed('category'), query: anyNamed('query')))
         .thenAnswer((_) async => Right(tNewsList));
     when(mockGetBookmarks.execute()).thenAnswer((_) async => Right([]));
 
@@ -154,7 +164,8 @@ void main() {
         child: MaterialApp(
           home: TabbedNewsView(),
           routes: {
-            '/news_detail': (context) => NewsDetailScreen(news: tNewsList.first),
+            '/news_detail': (context) =>
+                NewsDetailScreen(news: tNewsList.first),
           },
         ),
       ),

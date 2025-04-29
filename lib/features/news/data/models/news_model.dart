@@ -29,14 +29,14 @@ class NewsModel extends News {
     this.content,
     required this.publishedAt,
   }) : super(
-    id: id,
-    title: title,
-    description: description,
-    source: source,
-    imageUrl: imageUrl,
-    content: content,
-    publishedAt: publishedAt,
-  );
+          id: id,
+          title: title,
+          description: description,
+          source: source,
+          imageUrl: imageUrl,
+          content: content,
+          publishedAt: publishedAt,
+        );
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
@@ -46,7 +46,8 @@ class NewsModel extends News {
       source: json['source']['name'] ?? 'Unknown',
       imageUrl: json['urlToImage'],
       content: json['content'],
-      publishedAt: DateTime.parse(json['publishedAt'] ?? DateTime.now().toString()),
+      publishedAt:
+          DateTime.parse(json['publishedAt'] ?? DateTime.now().toString()),
     );
   }
 

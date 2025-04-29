@@ -1,10 +1,10 @@
-
 import 'package:either_dart/either.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/domain/entities/news.dart';
 import 'package:news_app/features/news/domain/usecases/get_news.dart';
+
 import '../../../../test_utils.mocks.dart';
 
 void main() {
@@ -27,9 +27,11 @@ void main() {
   ];
 
   group('GetNews', () {
-    test('should return news list when repository call is successful', () async {
+    test('should return news list when repository call is successful',
+        () async {
       // Arrange
-      when(mockRepository.getNews(category: anyNamed('category'), query: anyNamed('query')))
+      when(mockRepository.getNews(
+              category: anyNamed('category'), query: anyNamed('query')))
           .thenAnswer((_) async => Right(tNewsList));
 
       // Act
@@ -44,7 +46,8 @@ void main() {
     test('should return failure when repository fails', () async {
       // Arrange
       const failure = ServerFailure('Server error');
-      when(mockRepository.getNews(category: anyNamed('category'), query: anyNamed('query')))
+      when(mockRepository.getNews(
+              category: anyNamed('category'), query: anyNamed('query')))
           .thenAnswer((_) async => const Left(failure));
 
       // Act

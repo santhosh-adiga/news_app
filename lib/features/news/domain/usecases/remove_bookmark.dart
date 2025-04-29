@@ -1,4 +1,3 @@
-
 import 'package:either_dart/either.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/domain/repositories/news_repository.dart';

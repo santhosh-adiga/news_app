@@ -8,8 +8,8 @@ import 'package:news_app/features/news/domain/entities/news.dart';
 import 'package:news_app/features/news/domain/usecases/add_bookmark.dart';
 import 'package:news_app/features/news/domain/usecases/get_bookmarks.dart';
 import 'package:news_app/features/news/domain/usecases/remove_bookmark.dart';
-import 'package:news_app/features/news/presentation/providers/bookmark_provider.dart';
 import 'package:news_app/features/news/presentation/screens/news_detail_screen.dart';
+
 import '../../../../test_utils.mocks.dart';
 
 void main() {
@@ -40,7 +40,8 @@ void main() {
     publishedAt: DateTime.now(),
   );
 
-  testWidgets('NewsDetailScreen displays news details', (WidgetTester tester) async {
+  testWidgets('NewsDetailScreen displays news details',
+      (WidgetTester tester) async {
     // Arrange
     when(mockGetBookmarks.execute()).thenAnswer((_) async => Right([]));
 

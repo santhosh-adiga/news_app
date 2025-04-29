@@ -12,12 +12,12 @@ class NewsTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBookmarked = ref.watch(bookmarkProvider.select((state) =>
-        state.when(
-          data: (bookmarks) => bookmarks.any((item) => item.id == news.id),
-          loading: () => false,
-          error: (_, __) => false,
-        )));
+    final isBookmarked =
+        ref.watch(bookmarkProvider.select((state) => state.when(
+              data: (bookmarks) => bookmarks.any((item) => item.id == news.id),
+              loading: () => false,
+              error: (_, __) => false,
+            )));
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -26,13 +26,14 @@ class NewsTile extends ConsumerWidget {
         child: ListTile(
           leading: news.imageUrl != null
               ? CachedNetworkImage(
-            imageUrl: news.imageUrl!,
-            width: 80,
-            height: 80,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-          )
+                  imageUrl: news.imageUrl!,
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                )
               : const Icon(Icons.article, size: 80),
           title: Text(
             news.title,

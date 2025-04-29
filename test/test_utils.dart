@@ -30,10 +30,10 @@ void main() {}
 class MockNetworkInfoImpl extends Mock implements NetworkInfo {
   @override
   Future<bool> get isConnected => super.noSuchMethod(
-    Invocation.getter(#isConnected),
-    returnValue: Future.value(true),
-    returnValueForMissingStub: Future.value(true),
-  );
+        Invocation.getter(#isConnected),
+        returnValue: Future.value(true),
+        returnValueForMissingStub: Future.value(true),
+      );
 }
 
 Future<String> loadFixture(String path) async {

@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/domain/entities/news.dart';
-import 'package:news_app/features/news/domain/usecases/get_news.dart';
 import 'package:news_app/features/news/presentation/providers/news_provider.dart';
+
 import '../../../../test_utils.mocks.dart';
 
 void main() {
@@ -42,7 +41,8 @@ void main() {
   group('NewsNotifier', () {
     test('should load news successfully', () async {
       // Arrange
-      when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+      when(mockGetNews.execute(
+              category: anyNamed('category'), query: anyNamed('query')))
           .thenAnswer((_) async => Right(tNewsList));
 
       // Act
@@ -58,7 +58,8 @@ void main() {
     test('should handle error when loading news fails', () async {
       // Arrange
       const failure = ServerFailure('Server error');
-      when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+      when(mockGetNews.execute(
+              category: anyNamed('category'), query: anyNamed('query')))
           .thenAnswer((_) async => const Left(failure));
 
       // Act
@@ -74,7 +75,8 @@ void main() {
 
     test('should load news with category', () async {
       // Arrange
-      when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+      when(mockGetNews.execute(
+              category: anyNamed('category'), query: anyNamed('query')))
           .thenAnswer((_) async => Right(tNewsList));
 
       // Act
@@ -90,7 +92,8 @@ void main() {
 
     test('should load news with query', () async {
       // Arrange
-      when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+      when(mockGetNews.execute(
+              category: anyNamed('category'), query: anyNamed('query')))
           .thenAnswer((_) async => Right(tNewsList));
 
       // Act
@@ -107,15 +110,18 @@ void main() {
     test('should cancel request on dispose', () async {
       // Arrange
       final cancelToken = CancelToken();
-      when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+      when(mockGetNews.execute(
+              category: anyNamed('category'), query: anyNamed('query')))
           .thenAnswer((_) async => Right(tNewsList));
 
       // Act
-      final provider = StateNotifierProvider.autoDispose<NewsNotifier, AsyncValue<List<News>>>((ref) {
+      final provider = StateNotifierProvider.autoDispose<NewsNotifier,
+          AsyncValue<List<News>>>((ref) {
         ref.onDispose(() => cancelToken.cancel());
         return NewsNotifier(mockGetNews, cancelToken);
       });
-      final tempContainer = ProviderContainer(overrides: [getNewsProvider.overrideWithValue(mockGetNews)]);
+      final tempContainer = ProviderContainer(
+          overrides: [getNewsProvider.overrideWithValue(mockGetNews)]);
       tempContainer.read(provider);
       tempContainer.dispose();
 

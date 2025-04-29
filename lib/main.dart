@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:news_app/di/injection_container.dart';
 import 'package:news_app/features/news/data/models/news_model.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'app.dart';
 
@@ -15,4 +15,3 @@ void main() async {
   await initDependencies();
   runApp(const ProviderScope(child: NewsApp()));
 }
-

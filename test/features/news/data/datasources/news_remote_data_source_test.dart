@@ -7,6 +7,7 @@ import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/data/datasources/news_remote_data_source.dart';
 import 'package:news_app/features/news/data/models/news_model.dart';
+
 import '../../../../test_utils.dart';
 
 void main() {
@@ -41,7 +42,7 @@ void main() {
       final fixture = await loadFixture('news_response.json');
       dioAdapter.onGet(
         'https://newsapi.org/v2/top-headlines?apiKey=test_key&country=us',
-            (server) => server.reply(200, jsonDecode(fixture)),
+        (server) => server.reply(200, jsonDecode(fixture)),
       );
 
       // Act
@@ -57,7 +58,7 @@ void main() {
       // Arrange
       dioAdapter.onGet(
         'https://newsapi.org/v2/top-headlines?apiKey=test_key&country=us',
-            (server) => server.reply(500, {'error': 'Server error'}),
+        (server) => server.reply(500, {'error': 'Server error'}),
       );
 
       // Act & Assert
@@ -69,7 +70,7 @@ void main() {
       final fixture = await loadFixture('news_response.json');
       dioAdapter.onGet(
         'https://newsapi.org/v2/top-headlines?apiKey=test_key&country=us&category=sports',
-            (server) => server.reply(200, jsonDecode(fixture)),
+        (server) => server.reply(200, jsonDecode(fixture)),
       );
 
       // Act
@@ -84,7 +85,7 @@ void main() {
       final fixture = await loadFixture('news_response.json');
       dioAdapter.onGet(
         'https://newsapi.org/v2/top-headlines?apiKey=test_key&country=us&q=tech',
-            (server) => server.reply(200, jsonDecode(fixture)),
+        (server) => server.reply(200, jsonDecode(fixture)),
       );
 
       // Actimport 'package:dartz/dartz.dart';

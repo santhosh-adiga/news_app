@@ -55,7 +55,8 @@ void main() {
           .thenThrow(Exception('Cache error'));
 
       // Act & Assert
-      expect(() => dataSource.getCachedNews(tCacheKey), throwsA(isA<CacheFailure>()));
+      expect(() => dataSource.getCachedNews(tCacheKey),
+          throwsA(isA<CacheFailure>()));
     });
 
     test('should cache news successfully', () async {
@@ -71,10 +72,12 @@ void main() {
 
     test('should throw CacheFailure when caching news fails', () async {
       // Arrange
-      when(mockNewsBox.put(tCacheKey, tNewsList)).thenThrow(Exception('Cache error'));
+      when(mockNewsBox.put(tCacheKey, tNewsList))
+          .thenThrow(Exception('Cache error'));
 
       // Act & Assert
-      expect(() => dataSource.cacheNews(tNewsList, tCacheKey), throwsA(isA<CacheFailure>()));
+      expect(() => dataSource.cacheNews(tNewsList, tCacheKey),
+          throwsA(isA<CacheFailure>()));
     });
 
     test('should return bookmarks when available', () async {
@@ -114,7 +117,8 @@ void main() {
           .thenThrow(Exception('Cache error'));
 
       // Act & Assert
-      expect(() => dataSource.addBookmark(tNewsList.first), throwsA(isA<CacheFailure>()));
+      expect(() => dataSource.addBookmark(tNewsList.first),
+          throwsA(isA<CacheFailure>()));
     });
 
     test('should remove bookmark successfully', () async {
@@ -133,7 +137,8 @@ void main() {
       when(mockBookmarkBox.delete('1')).thenThrow(Exception('Cache error'));
 
       // Act & Assert
-      expect(() => dataSource.removeBookmark('1'), throwsA(isA<CacheFailure>()));
+      expect(
+          () => dataSource.removeBookmark('1'), throwsA(isA<CacheFailure>()));
     });
   });
 }

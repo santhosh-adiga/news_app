@@ -8,6 +8,7 @@ import 'package:news_app/di/injection_container.dart';
 import 'package:news_app/features/news/domain/entities/news.dart';
 import 'package:news_app/features/news/domain/usecases/get_news.dart';
 import 'package:news_app/features/news/presentation/screens/news_list_screen.dart';
+
 import '../../../../test_utils.mocks.dart';
 
 void main() {
@@ -32,9 +33,11 @@ void main() {
     ),
   ];
 
-  testWidgets('NewsListScreen displays TabbedNewsView with tabs', (WidgetTester tester) async {
+  testWidgets('NewsListScreen displays TabbedNewsView with tabs',
+      (WidgetTester tester) async {
     // Arrange
-    when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+    when(mockGetNews.execute(
+            category: anyNamed('category'), query: anyNamed('query')))
         .thenAnswer((_) async => Right(tNewsList));
 
     // Act
@@ -55,9 +58,11 @@ void main() {
     expect(find.text('Test News'), findsOneWidget); // NFR 4: UI renders data
   });
 
-  testWidgets('NewsListScreen shows loading state', (WidgetTester tester) async {
+  testWidgets('NewsListScreen shows loading state',
+      (WidgetTester tester) async {
     // Arrange
-    when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+    when(mockGetNews.execute(
+            category: anyNamed('category'), query: anyNamed('query')))
         .thenAnswer((_) async {
       await Future.delayed(Duration(seconds: 1));
       return Right(tNewsList);
@@ -74,12 +79,14 @@ void main() {
     await tester.pump(); // Partial pump to show loading
 
     // Assert
-    expect(find.byType(CircularProgressIndicator), findsOneWidget); // NFR 5: Unified loading
+    expect(find.byType(CircularProgressIndicator),
+        findsOneWidget); // NFR 5: Unified loading
   });
 
   testWidgets('NewsListScreen shows error state', (WidgetTester tester) async {
     // Arrange
-    when(mockGetNews.execute(category: anyNamed('category'), query: anyNamed('query')))
+    when(mockGetNews.execute(
+            category: anyNamed('category'), query: anyNamed('query')))
         .thenAnswer((_) async => Left(ServerFailure('Server error')));
 
     // Act
@@ -93,6 +100,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Assert
-    expect(find.text('Error: Server error'), findsOneWidget); // NFR 5: Unified error
+    expect(find.text('Error: Server error'),
+        findsOneWidget); // NFR 5: Unified error
   });
 }

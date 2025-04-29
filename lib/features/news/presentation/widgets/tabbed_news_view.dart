@@ -94,13 +94,18 @@ class _TabbedNewsViewState extends ConsumerState<TabbedNewsView>
                     ),
                     const SizedBox(width: 8),
                     DropdownButton<String>(
-                      value: _selectedCategory.isEmpty ? null : _selectedCategory,
+                      value:
+                          _selectedCategory.isEmpty ? null : _selectedCategory,
                       hint: const Text('Category'),
                       items: const [
                         DropdownMenuItem(value: '', child: Text('All')),
-                        DropdownMenuItem(value: 'business', child: Text('Business')),
-                        DropdownMenuItem(value: 'entertainment', child: Text('Entertainment')),
-                        DropdownMenuItem(value: 'health', child: Text('Health')),
+                        DropdownMenuItem(
+                            value: 'business', child: Text('Business')),
+                        DropdownMenuItem(
+                            value: 'entertainment',
+                            child: Text('Entertainment')),
+                        DropdownMenuItem(
+                            value: 'health', child: Text('Health')),
                       ],
                       onChanged: _onCategoryChanged,
                     ),

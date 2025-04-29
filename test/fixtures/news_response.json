@@ -3,7 +3,9 @@
   "totalResults": 2,
   "articles": [
     {
-      "source": { "name": "TechCrunch" },
+      "source": {
+        "name": "TechCrunch"
+      },
       "title": "New AI Breakthrough",
       "description": "AI advances in 2025.",
       "url": "http://example.com/ai",
@@ -12,7 +14,9 @@
       "content": "Full AI content."
     },
     {
-      "source": { "name": "ESPN" },
+      "source": {
+        "name": "ESPN"
+      },
       "title": "Sports Update",
       "description": "Latest sports news.",
       "url": "http://example.com/sports",

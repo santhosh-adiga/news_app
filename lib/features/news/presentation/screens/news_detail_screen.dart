@@ -11,12 +11,12 @@ class NewsDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBookmarked = ref.watch(bookmarkProvider.select((state) =>
-        state.when(
-          data: (bookmarks) => bookmarks.any((item) => item.id == news.id),
-          loading: () => false,
-          error: (_, __) => false,
-        )));
+    final isBookmarked =
+        ref.watch(bookmarkProvider.select((state) => state.when(
+              data: (bookmarks) => bookmarks.any((item) => item.id == news.id),
+              loading: () => false,
+              error: (_, __) => false,
+            )));
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +45,8 @@ class NewsDetailScreen extends ConsumerWidget {
                 height: 200,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                placeholder: (context, url) => const CircularProgressIndicator(),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             const SizedBox(height: 16),

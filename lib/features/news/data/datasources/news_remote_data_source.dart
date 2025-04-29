@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/data/models/news_model.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class NewsRemoteDataSource {
   Future<List<NewsModel>> getNews({
@@ -27,7 +27,8 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
       if (apiKey.isEmpty) {
         throw const ServerFailure('API key is missing');
       }
-      final url = StringBuffer('https://newsapi.org/v2/top-headlines?apiKey=$apiKey');
+      final url =
+          StringBuffer('https://newsapi.org/v2/top-headlines?apiKey=$apiKey');
       url.write('&country=us');
       if (category != null && category.isNotEmpty) {
         url.write('&category=$category');
