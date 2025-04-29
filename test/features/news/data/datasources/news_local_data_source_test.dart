@@ -1,0 +1,138 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
+import 'package:mockito/mockito.dart';
+import 'package:news_app/core/error/failures.dart';
+import 'package:news_app/features/news/data/datasources/news_local_data_source.dart';
+import 'package:news_app/features/news/data/models/news_model.dart';
+
+
+void main() {
+  late NewsLocalDataSourceImpl dataSource;
+  late MockBox<List<NewsModel>> mockNewsBox;
+  late MockBox<NewsModel> mockBookmarkBox;
+
+  setUp(() async {
+    mockNewsBox = MockBox<List<NewsModel>>();
+    mockBookmarkBox = MockBox<NewsModel>();
+    // Mock Hive box behavior
+    when(Hive.box<List<NewsModel>>(any)).thenReturn(mockNewsBox);
+    when(Hive.box<NewsModel>(any)).thenReturn(mockBookmarkBox);
+    when(Hive.isBoxOpen(any)).thenReturn(true);
+    dataSource = NewsLocalDataSourceImpl();
+  });
+
+  group('NewsLocalDataSourceImpl', () {
+    final tNewsList = [
+      NewsModel(
+        id: '1',
+        title: 'Test News',
+        description: 'Description',
+        source: 'Source',
+        publishedAt: DateTime.now(),
+      ),
+    ];
+
+    const tCacheKey = 'general_';
+
+    test('should return cached news when available', () async {
+      // Arrange
+      when(mockNewsBox.get(any, defaultValue: anyNamed('defaultValue')))
+          .thenReturn(tNewsList);
+
+      // Act
+      final result = await dataSource.getCachedNews(tCacheKey);
+
+      // Assert
+      expect(result, tNewsList);
+      verify(mockNewsBox.get(tCacheKey, defaultValue: []));
+    });
+
+    test('should throw CacheFailure when getting cached news fails', () async {
+      // Arrange
+      when(mockNewsBox.get(any, defaultValue: anyNamed('defaultValue')))
+          .thenThrow(Exception('Cache error'));
+
+      // Act & Assert
+      expect(() => dataSource.getCachedNews(tCacheKey), throwsA(isA<CacheFailure>()));
+    });
+
+    test('should cache news successfully', () async {
+      // Arrange
+      when(mockNewsBox.put(any, any)).thenAnswer((_) async => null);
+
+      // Act
+      await dataSource.cacheNews(tNewsList, tCacheKey);
+
+      // Assert
+      verify(mockNewsBox.put(tCacheKey, tNewsList));
+    });
+
+    test('should throw CacheFailure when caching news fails', () async {
+      // Arrange
+      when(mockNewsBox.put(any, any)).thenThrow(Exception('Cache error'));
+
+      // Act & Assert
+      expect(() => dataSource.cacheNews(tNewsList, tCacheKey), throwsA(isA<CacheFailure>()));
+    });
+
+    test('should return bookmarks when available', () async {
+      // Arrange
+      when(mockBookmarkBox.values).thenReturn(tNewsList);
+
+      // Act
+      final result = await dataSource.getBookmarks();
+
+      // Assert
+      expect(result, tNewsList);
+    });
+
+    test('should throw CacheFailure when getting bookmarks fails', () async {
+      // Arrange
+      when(mockBookmarkBox.values).thenThrow(Exception('Cache error'));
+
+      // Act & Assert
+      expect(() => dataSource.getBookmarks(), throwsA(isA<CacheFailure>()));
+    });
+
+    test('should add bookmark successfully', () async {
+      // Arrange
+      when(mockBookmarkBox.put(any, any)).thenAnswer((_) async => null);
+
+      // Act
+      await dataSource.addBookmark(tNewsList.first);
+
+      // Assert
+      verify(mockBookmarkBox.put(tNewsList.first.id, tNewsList.first));
+    });
+
+    test('should throw CacheFailure when adding bookmark fails', () async {
+      // Arrange
+      when(mockBookmarkBox.put(any, any)).thenThrow(Exception('Cache error'));
+
+      // Act & Assert
+      expect(() => dataSource.addBookmark(tNewsList.first), throwsA(isA<CacheFailure>()));
+    });
+
+    test('should remove bookmark successfully', () async {
+      // Arrange
+      when(mockBookmarkBox.delete(any)).thenAnswer((_) async => null);
+
+      // Act
+      await dataSource.removeBookmark('1');
+
+      // Assert
+      verify(mockBookmarkBox.delete('1'));
+    });
+
+    test('should throw CacheFailure when removing bookmark fails', () async {
+      // Arrange
+      when(mockBookmarkBox.delete(any)).thenThrow(Exception('Cache error'));
+
+      // Act & Assert
+      expect(() => dataSource.removeBookmark('1'), throwsA(isA<CacheFailure>()));
+    });
+  });
+}
+
+// Mock Hive Box for List<NewsModel>
+class MockBox<T> extends Mock implements Box<T> {}

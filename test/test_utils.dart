@@ -14,7 +14,6 @@ import 'package:news_app/features/news/domain/repositories/news_repository.dart'
   NewsRepository,
   NewsRemoteDataSource,
   NewsLocalDataSource,
-  NetworkInfo,
   Connectivity,
   Dio,
 ])
