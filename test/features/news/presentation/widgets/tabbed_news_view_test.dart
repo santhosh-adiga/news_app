@@ -1,3 +1,4 @@
+import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,11 +9,9 @@ import 'package:news_app/features/news/domain/usecases/add_bookmark.dart';
 import 'package:news_app/features/news/domain/usecases/get_bookmarks.dart';
 import 'package:news_app/features/news/domain/usecases/get_news.dart';
 import 'package:news_app/features/news/domain/usecases/remove_bookmark.dart';
-import 'package:news_app/features/news/presentation/providers/bookmark_provider.dart';
-import 'package:news_app/features/news/presentation/providers/news_provider.dart';
 import 'package:news_app/features/news/presentation/screens/news_detail_screen.dart';
 import 'package:news_app/features/news/presentation/widgets/tabbed_news_view.dart';
-import '../../../test_utils.mocks.dart';
+import '../../../../test_utils.mocks.dart';
 
 void main() {
   late MockGetNews mockGetNews;

@@ -14,10 +14,23 @@ void main() {
   });
 
   group('NetworkInfoImpl', () {
-    test('should return true when connected', () async {
+    test('should return true when connected via wifi', () async {
       // Arrange
       when(mockConnectivity.checkConnectivity())
-          .thenAnswer((_) async => ConnectivityResult.wifi);
+          .thenAnswer((_) async => [ConnectivityResult.wifi]);
+
+      // Act
+      final result = await networkInfo.isConnected;
+
+      // Assert
+      expect(result, true);
+      verify(mockConnectivity.checkConnectivity());
+    });
+
+    test('should return true when connected via mobile', () async {
+      // Arrange
+      when(mockConnectivity.checkConnectivity())
+          .thenAnswer((_) async => [ConnectivityResult.mobile]);
 
       // Act
       final result = await networkInfo.isConnected;
@@ -30,13 +43,26 @@ void main() {
     test('should return false when not connected', () async {
       // Arrange
       when(mockConnectivity.checkConnectivity())
-          .thenAnswer((_) async => ConnectivityResult.none);
+          .thenAnswer((_) async => [ConnectivityResult.none]);
 
       // Act
       final result = await networkInfo.isConnected;
 
       // Assert
       expect(result, false);
+      verify(mockConnectivity.checkConnectivity());
+    });
+
+    test('should return true when multiple connections are active', () async {
+      // Arrange
+      when(mockConnectivity.checkConnectivity())
+          .thenAnswer((_) async => [ConnectivityResult.wifi, ConnectivityResult.mobile]);
+
+      // Act
+      final result = await networkInfo.isConnected;
+
+      // Assert
+      expect(result, true);
       verify(mockConnectivity.checkConnectivity());
     });
   });

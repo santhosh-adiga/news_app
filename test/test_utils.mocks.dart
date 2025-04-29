@@ -21,6 +21,13 @@ import 'package:news_app/features/news/data/models/news_model.dart' as _i10;
 import 'package:news_app/features/news/domain/entities/news.dart' as _i7;
 import 'package:news_app/features/news/domain/repositories/news_repository.dart'
     as _i3;
+import 'package:news_app/features/news/domain/usecases/add_bookmark.dart'
+    as _i16;
+import 'package:news_app/features/news/domain/usecases/get_bookmarks.dart'
+    as _i15;
+import 'package:news_app/features/news/domain/usecases/get_news.dart' as _i14;
+import 'package:news_app/features/news/domain/usecases/remove_bookmark.dart'
+    as _i17;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -89,6 +96,17 @@ class _FakeResponse_4<T1> extends _i1.SmartFake implements _i2.Response<T1> {
 
 class _FakeDio_5 extends _i1.SmartFake implements _i2.Dio {
   _FakeDio_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeNewsRepository_6 extends _i1.SmartFake
+    implements _i3.NewsRepository {
+  _FakeNewsRepository_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1051,4 +1069,155 @@ class MockDio extends _i1.Mock implements _i2.Dio {
           ),
         ),
       ) as _i2.Dio);
+}
+
+/// A class which mocks [GetNews].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetNews extends _i1.Mock implements _i14.GetNews {
+  MockGetNews() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.NewsRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeNewsRepository_6(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i3.NewsRepository);
+
+  @override
+  _i4.Future<_i5.Either<_i6.Failure, List<_i7.News>>> execute({
+    String? category,
+    String? query,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {
+            #category: category,
+            #query: query,
+          },
+        ),
+        returnValue: _i4.Future<_i5.Either<_i6.Failure, List<_i7.News>>>.value(
+            _i8.dummyValue<_i5.Either<_i6.Failure, List<_i7.News>>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+            {
+              #category: category,
+              #query: query,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i5.Either<_i6.Failure, List<_i7.News>>>);
+}
+
+/// A class which mocks [GetBookmarks].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetBookmarks extends _i1.Mock implements _i15.GetBookmarks {
+  MockGetBookmarks() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.NewsRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeNewsRepository_6(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i3.NewsRepository);
+
+  @override
+  _i4.Future<_i5.Either<_i6.Failure, List<_i7.News>>> execute() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+        ),
+        returnValue: _i4.Future<_i5.Either<_i6.Failure, List<_i7.News>>>.value(
+            _i8.dummyValue<_i5.Either<_i6.Failure, List<_i7.News>>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i5.Either<_i6.Failure, List<_i7.News>>>);
+}
+
+/// A class which mocks [AddBookmark].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAddBookmark extends _i1.Mock implements _i16.AddBookmark {
+  MockAddBookmark() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.NewsRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeNewsRepository_6(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i3.NewsRepository);
+
+  @override
+  _i4.Future<_i5.Either<_i6.Failure, void>> execute(_i7.News? news) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [news],
+        ),
+        returnValue: _i4.Future<_i5.Either<_i6.Failure, void>>.value(
+            _i8.dummyValue<_i5.Either<_i6.Failure, void>>(
+          this,
+          Invocation.method(
+            #execute,
+            [news],
+          ),
+        )),
+      ) as _i4.Future<_i5.Either<_i6.Failure, void>>);
+}
+
+/// A class which mocks [RemoveBookmark].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRemoveBookmark extends _i1.Mock implements _i17.RemoveBookmark {
+  MockRemoveBookmark() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.NewsRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeNewsRepository_6(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i3.NewsRepository);
+
+  @override
+  _i4.Future<_i5.Either<_i6.Failure, void>> execute(String? newsId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [newsId],
+        ),
+        returnValue: _i4.Future<_i5.Either<_i6.Failure, void>>.value(
+            _i8.dummyValue<_i5.Either<_i6.Failure, void>>(
+          this,
+          Invocation.method(
+            #execute,
+            [newsId],
+          ),
+        )),
+      ) as _i4.Future<_i5.Either<_i6.Failure, void>>);
 }

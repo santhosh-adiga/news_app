@@ -7,7 +7,6 @@ import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/di/injection_container.dart';
 import 'package:news_app/features/news/domain/entities/news.dart';
 import 'package:news_app/features/news/domain/usecases/get_news.dart';
-import 'package:news_app/features/news/presentation/providers/news_provider.dart';
 import 'package:news_app/features/news/presentation/screens/news_list_screen.dart';
 import '../../../../test_utils.mocks.dart';
 

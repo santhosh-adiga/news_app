@@ -5,6 +5,7 @@ import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/data/datasources/news_local_data_source.dart';
 import 'package:news_app/features/news/data/models/news_model.dart';
 
+class MockBox<T> extends Mock implements Box<T> {}
 
 void main() {
   late NewsLocalDataSourceImpl dataSource;
@@ -14,10 +15,11 @@ void main() {
   setUp(() async {
     mockNewsBox = MockBox<List<NewsModel>>();
     mockBookmarkBox = MockBox<NewsModel>();
-    // Mock Hive box behavior
-    when(Hive.box<List<NewsModel>>(any)).thenReturn(mockNewsBox);
-    when(Hive.box<NewsModel>(any)).thenReturn(mockBookmarkBox);
-    when(Hive.isBoxOpen(any)).thenReturn(true);
+    // Mock Hive box behavior with specific box names
+    when(Hive.box<List<NewsModel>>('newsBox')).thenReturn(mockNewsBox);
+    when(Hive.box<NewsModel>('bookmarkBox')).thenReturn(mockBookmarkBox);
+    when(Hive.isBoxOpen('newsBox')).thenReturn(true);
+    when(Hive.isBoxOpen('bookmarkBox')).thenReturn(true);
     dataSource = NewsLocalDataSourceImpl();
   });
 
@@ -36,7 +38,7 @@ void main() {
 
     test('should return cached news when available', () async {
       // Arrange
-      when(mockNewsBox.get(any, defaultValue: anyNamed('defaultValue')))
+      when(mockNewsBox.get(tCacheKey, defaultValue: anyNamed('defaultValue')))
           .thenReturn(tNewsList);
 
       // Act
@@ -49,7 +51,7 @@ void main() {
 
     test('should throw CacheFailure when getting cached news fails', () async {
       // Arrange
-      when(mockNewsBox.get(any, defaultValue: anyNamed('defaultValue')))
+      when(mockNewsBox.get(tCacheKey, defaultValue: anyNamed('defaultValue')))
           .thenThrow(Exception('Cache error'));
 
       // Act & Assert
@@ -58,7 +60,7 @@ void main() {
 
     test('should cache news successfully', () async {
       // Arrange
-      when(mockNewsBox.put(any, any)).thenAnswer((_) async => null);
+      when(mockNewsBox.put(tCacheKey, tNewsList)).thenAnswer((_) async => null);
 
       // Act
       await dataSource.cacheNews(tNewsList, tCacheKey);
@@ -69,7 +71,7 @@ void main() {
 
     test('should throw CacheFailure when caching news fails', () async {
       // Arrange
-      when(mockNewsBox.put(any, any)).thenThrow(Exception('Cache error'));
+      when(mockNewsBox.put(tCacheKey, tNewsList)).thenThrow(Exception('Cache error'));
 
       // Act & Assert
       expect(() => dataSource.cacheNews(tNewsList, tCacheKey), throwsA(isA<CacheFailure>()));
@@ -96,7 +98,8 @@ void main() {
 
     test('should add bookmark successfully', () async {
       // Arrange
-      when(mockBookmarkBox.put(any, any)).thenAnswer((_) async => null);
+      when(mockBookmarkBox.put(tNewsList.first.id, tNewsList.first))
+          .thenAnswer((_) async => null);
 
       // Act
       await dataSource.addBookmark(tNewsList.first);
@@ -107,7 +110,8 @@ void main() {
 
     test('should throw CacheFailure when adding bookmark fails', () async {
       // Arrange
-      when(mockBookmarkBox.put(any, any)).thenThrow(Exception('Cache error'));
+      when(mockBookmarkBox.put(tNewsList.first.id, tNewsList.first))
+          .thenThrow(Exception('Cache error'));
 
       // Act & Assert
       expect(() => dataSource.addBookmark(tNewsList.first), throwsA(isA<CacheFailure>()));
@@ -115,7 +119,7 @@ void main() {
 
     test('should remove bookmark successfully', () async {
       // Arrange
-      when(mockBookmarkBox.delete(any)).thenAnswer((_) async => null);
+      when(mockBookmarkBox.delete('1')).thenAnswer((_) async => null);
 
       // Act
       await dataSource.removeBookmark('1');
@@ -126,13 +130,10 @@ void main() {
 
     test('should throw CacheFailure when removing bookmark fails', () async {
       // Arrange
-      when(mockBookmarkBox.delete(any)).thenThrow(Exception('Cache error'));
+      when(mockBookmarkBox.delete('1')).thenThrow(Exception('Cache error'));
 
       // Act & Assert
       expect(() => dataSource.removeBookmark('1'), throwsA(isA<CacheFailure>()));
     });
   });
 }
-
-// Mock Hive Box for List<NewsModel>
-class MockBox<T> extends Mock implements Box<T> {}

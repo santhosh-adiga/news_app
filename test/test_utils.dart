@@ -8,6 +8,10 @@ import 'package:news_app/core/network/network_info.dart';
 import 'package:news_app/features/news/data/datasources/news_local_data_source.dart';
 import 'package:news_app/features/news/data/datasources/news_remote_data_source.dart';
 import 'package:news_app/features/news/domain/repositories/news_repository.dart';
+import 'package:news_app/features/news/domain/usecases/add_bookmark.dart';
+import 'package:news_app/features/news/domain/usecases/get_bookmarks.dart';
+import 'package:news_app/features/news/domain/usecases/get_news.dart';
+import 'package:news_app/features/news/domain/usecases/remove_bookmark.dart';
 
 // Generate mocks with: flutter pub run build_runner build
 @GenerateMocks([
@@ -16,6 +20,10 @@ import 'package:news_app/features/news/domain/repositories/news_repository.dart'
   NewsLocalDataSource,
   Connectivity,
   Dio,
+  GetNews,
+  GetBookmarks,
+  AddBookmark,
+  RemoveBookmark,
 ])
 void main() {}
 

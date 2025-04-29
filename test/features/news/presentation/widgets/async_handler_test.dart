@@ -6,7 +6,7 @@ import 'package:news_app/core/widgets/async_handler.dart';
 void main() {
   testWidgets('AsyncHandler shows loading state', (WidgetTester tester) async {
     // Arrange
-    const asyncValue = AsyncValue.loading<String>();
+    const asyncValue = AsyncValue<String>.loading();
 
     // Act
     await tester.pumpWidget(
@@ -25,7 +25,7 @@ void main() {
 
   testWidgets('AsyncHandler shows data state', (WidgetTester tester) async {
     // Arrange
-    const asyncValue = AsyncValue.data<String>('Test Data');
+    const asyncValue = AsyncValue<String>.data('Test Data');
 
     // Act
     await tester.pumpWidget(
@@ -44,7 +44,7 @@ void main() {
 
   testWidgets('AsyncHandler shows error state', (WidgetTester tester) async {
     // Arrange
-    final asyncValue = AsyncValue.error<String>('Error message', StackTrace.empty);
+    final asyncValue = AsyncValue<String>.error('Error message', StackTrace.empty);
 
     // Act
     await tester.pumpWidget(

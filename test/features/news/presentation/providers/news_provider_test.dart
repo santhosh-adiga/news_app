@@ -8,7 +8,7 @@ import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/news/domain/entities/news.dart';
 import 'package:news_app/features/news/domain/usecases/get_news.dart';
 import 'package:news_app/features/news/presentation/providers/news_provider.dart';
-import '../../../../../test_utils.mocks.dart';
+import '../../../../test_utils.mocks.dart';
 
 void main() {
   late ProviderContainer container;

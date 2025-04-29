@@ -45,7 +45,6 @@ Future<void> initDependencies() async {
   getIt.registerSingleton<RemoveBookmark>(removeBookmark);
 }
 
-// Poor man's DI
 class GetIt {
   final Map<Type, dynamic> _instances = {};
 
@@ -54,6 +53,10 @@ class GetIt {
   }
 
   T get<T>() => _instances[T] as T;
+
+  void reset() {
+    _instances.clear();
+  }
 }
 
 final getIt = GetIt();
